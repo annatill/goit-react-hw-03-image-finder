@@ -17,6 +17,7 @@ export class App extends Component {
     total: 0,
     showModal: false,
     imageModal: null,
+    errorDisplayed: false,
   };
 
   handleSubmitForm = query => {
@@ -36,7 +37,6 @@ export class App extends Component {
         draggable: true,
         progress: undefined,
         theme: 'dark',
-        errorDisplayed: false,
       });
     }
   };
