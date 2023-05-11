@@ -1,14 +1,18 @@
 import propTypes from 'prop-types';
+import {
+  ImageGalleryItemContainer,
+  ImageGalleryItemImage,
+} from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ image, toggleModal }) => {
   return (
-    <li>
-      <img
+    <ImageGalleryItemContainer>
+      <ImageGalleryItemImage
         src={image.webformatURL}
         alt={image.tags}
         onClick={() => toggleModal(image)}
       />
-    </li>
+    </ImageGalleryItemContainer>
   );
 };
 

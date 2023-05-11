@@ -1,5 +1,11 @@
 import { Component } from 'react';
 import propTypes from 'prop-types';
+import {
+  SearchbarContainer,
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+} from './Searchbar.styled';
 
 export class Searchbar extends Component {
   state = {
@@ -21,7 +27,6 @@ export class Searchbar extends Component {
       return this.props.handleErrorMessage('Please fill in all fields');
     }
     this.props.onSubmit(this.state.query);
-    this.setState({ page: 1 });
     // this.setState({ page: 1, isButtonDisabled: true });
   };
 
@@ -29,22 +34,19 @@ export class Searchbar extends Component {
     const { query } = this.state;
     // const { query, isButtonDisabled } = this.state;
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <input
-            className="input"
+      <SearchbarContainer>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchFormInput
             type="text"
             placeholder="Search images and photos"
             value={query}
             onChange={this.handleChange}
           />
 
-          {/* <button type="submit" className="button" disabled={isButtonDisabled}> */}
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
-        </form>
-      </header>
+          {/* <button type="submit" disabled={isButtonDisabled}> */}
+          <SearchFormButton type="submit">Search</SearchFormButton>
+        </SearchForm>
+      </SearchbarContainer>
     );
   }
 }

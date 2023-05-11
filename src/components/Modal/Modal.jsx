@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Loader } from '../Loader/Loader';
-import { Overlay } from './Modal.styled';
+import { Overlay, ModalContainer, ModalImage } from './Modal.styled';
 const modalRoot = document.getElementById('modal-root');
 
 export class Modal extends Component {
@@ -34,14 +34,14 @@ export class Modal extends Component {
 
     return createPortal(
       <Overlay onClick={this.handleBackdropClick}>
-        <div className="modal">
+        <ModalContainer>
           {loading && <Loader />}
-          <img
+          <ModalImage
             src={largeImageURL}
             alt={tags}
             onLoad={() => this.setState({ loading: false })}
           />
-        </div>
+        </ModalContainer>
       </Overlay>,
       modalRoot
     );

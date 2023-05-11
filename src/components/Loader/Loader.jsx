@@ -1,8 +1,9 @@
 import { Bars } from 'react-loader-spinner';
+import { LoaderContainer } from './Loader.styled';
 
 export const Loader = () => {
   return (
-    <div>
+    <LoaderContainer>
       <Bars
         height="80"
         width="80"
@@ -12,6 +13,6 @@ export const Loader = () => {
         wrapperClass=""
         visible={true}
       />
-    </div>
+    </LoaderContainer>
   );
 };

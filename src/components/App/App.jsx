@@ -24,21 +24,28 @@ export class App extends Component {
   };
 
   handleErrorMessage = text => {
-    toast.error(text, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'dark',
-    });
+    if (!this.state.errorDisplayed) {
+      this.setState({ errorDisplayed: true });
+    } else {
+      toast.error(text, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        errorDisplayed: false,
+      });
+    }
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
-
+    if (prevState.query !== query) {
+      this.setState({ page: 1, errorDisplayed: false });
+    }
     if (prevState.query !== query || prevState.page !== page) {
       this.setState({ loading: true });
       fetchImages(query, page)

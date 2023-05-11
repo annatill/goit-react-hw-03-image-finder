@@ -1,9 +1,10 @@
 import propTypes from 'prop-types';
+import { ImageGalleryContainer } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
 export const ImageGallery = ({ images, toggleModal }) => {
   return (
-    <ul className="gallery">
+    <ImageGalleryContainer>
       {images.map(image => (
         <ImageGalleryItem
           key={image.id}
@@ -11,7 +12,7 @@ export const ImageGallery = ({ images, toggleModal }) => {
           toggleModal={toggleModal}
         />
       ))}
-    </ul>
+    </ImageGalleryContainer>
   );
 };
 
