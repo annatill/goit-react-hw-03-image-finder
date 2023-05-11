@@ -12,11 +12,11 @@ export class App extends Component {
   state = {
     images: [],
     query: '',
-    page: 42,
+    page: 1,
     loading: false,
-    // error: null,
     total: 0,
     showModal: false,
+    imageModal: null,
   };
 
   handleSubmitForm = query => {
@@ -72,14 +72,15 @@ export class App extends Component {
     }));
   };
 
-  toggleModal = () => {
+  toggleModal = image => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
+      imageModal: image,
     }));
   };
 
   render() {
-    const { images, loading, page, total, showModal } = this.state;
+    const { images, loading, page, total, showModal, imageModal } = this.state;
     const shouldRenderButton = 12 * page < total && images.length > 0;
     return (
       <Container>
@@ -91,7 +92,9 @@ export class App extends Component {
         {loading && <Loader />}
         <ImageGallery images={images} toggleModal={this.toggleModal} />
         {shouldRenderButton && <Button onClick={this.onClickButton} />}
-        {showModal && <Modal toggleModal={this.toggleModal} />}
+        {showModal && (
+          <Modal toggleModal={this.toggleModal} image={imageModal} />
+        )}
       </Container>
     );
   }
