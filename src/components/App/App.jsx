@@ -18,6 +18,7 @@ export class App extends Component {
     showModal: false,
     imageModal: null,
     errorDisplayed: false,
+    onClickButton: false,
   };
 
   handleSubmitForm = query => {
@@ -42,10 +43,8 @@ export class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
-    if (prevState.query !== query) {
-      this.setState({ page: 1, errorDisplayed: false });
-    }
+    const { query, page, onClickButton } = this.state;
+
     if (prevState.query !== query || prevState.page !== page) {
       this.setState({ loading: true });
       fetchImages(query, page)
@@ -54,12 +53,19 @@ export class App extends Component {
             this.handleErrorMessage(
               'Sorry, there are no images matching your search query. Please try again.'
             );
-            return [];
+            this.setState({ images: [], errorDisplayed: true });
+            return;
+          }
+          if (!onClickButton) {
+            this.setState({ page: 1 });
           }
 
-          if (prevState.query === query) {
+          if (onClickButton) {
             // only page changed
-            this.setState({ images: [...prevState.images, ...images] });
+            this.setState({
+              images: [...prevState.images, ...images],
+              onClickButton: false,
+            });
           } else {
             this.setState({ images, total });
           }
@@ -76,6 +82,7 @@ export class App extends Component {
   onClickButton = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
+      onClickButton: true,
     }));
   };
 
